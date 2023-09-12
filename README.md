@@ -132,11 +132,11 @@ Dengan melakukan langkah ini, fungsi `show_main` yang telah dibuat pada `views.p
 ### 4. Jelaskan apakah itu MVC, MVT, MVVM dan perbedaan dari ketiganya.
 &emsp;MVC (Model-View-Controller), MVT (Model-View-Template), dan MVVM (Model-View-ViewModel) adalah pola desain yang memisahkan logika aplikasi, tampilan, dan data:
 
-#####- MVC: 
+##### - MVC: 
 &emsp;**Model** mengelola data, **View** menampilkan data, dan **Controller** mengatur logika aplikasi. Hubungan satu arah antara Model, View, dan Controller.
 
-#####- MVT: 
+##### - MVT: 
 &emsp;Mirip dengan MVC, tetapi Controller digantikan oleh **Template**, yang mengatur tampilan dan logika presentasi di dalam tampilan HTML. MVT biasanya terkait dengan kerangka kerja web seperti **Django.**
 
-#####- MVVM: 
+##### - MVVM: 
 &emsp;**Model** mengelola data, **View** menampilkan data, dan **ViewModel** bertindak sebagai perantara antara keduanya. ViewModel memungkinkan View berkomunikasi dengan Model tanpa mengetahui detail implementasi Model. Digunakan terutama dalam aplikasi berbasis tampilan data seperti desktop dan mobile.
