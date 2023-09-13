@@ -1,6 +1,12 @@
 from django.test import TestCase, Client
+from main.models import Item
 
 class mainTest(TestCase):
+    def test_item_model_fields(self):
+        self.assertTrue(Item.name)
+        self.assertTrue(Item.amount)
+        self.assertTrue(Item.description)
+
     def test_context_variable_existence(self):
         response = Client().get('/main/')
         self.assertEqual(response.status_code, 200)
