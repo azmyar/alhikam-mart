@@ -1,4 +1,5 @@
 # Alhikam Mart.
+Your neighborhood's one-stop shop for groceries and essentials with a touch of local charm.
 ## Questions
 <details>
 <summary>&ensp;Tugas 2</summary>
@@ -143,7 +144,7 @@ Dengan melakukan langkah ini, fungsi `show_main` yang telah dibuat pada `views.p
 ##### - MVVM: 
 &emsp;**Model** mengelola data, **View** menampilkan data, dan **ViewModel** bertindak sebagai perantara antara keduanya. ViewModel memungkinkan View berkomunikasi dengan Model tanpa mengetahui detail implementasi Model. Digunakan terutama dalam aplikasi berbasis tampilan data seperti desktop dan mobile.
 </details>
-<!-- <details> -->
+<details>
 <summary>&ensp;Tugas 3</summary>
 
 ### 1. Apa perbedaan antara form POST dan form GET dalam Django?
