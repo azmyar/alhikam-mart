@@ -158,19 +158,19 @@ Dengan melakukan langkah ini, fungsi `show_main` yang telah dibuat pada `views.p
 
 ### 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
 
-####XML (Extensible Markup Language):
+#### XML (Extensible Markup Language):
 
 - Sebuah bahasa *markup* yang digunakan untuk mendefinisikan struktur data hierarkis dengan menggunakan tag `<>` untuk mengidentifikasi elemen-elemen dalam data.
 - Biasanya dipakai untuk mengirimkan data antara berbagai aplikasi dan sebagai format penyimpanan yang dapat diurai oleh berbagai program.
 - Dikenal karena memiliki aturan sintaksis yang ketat dan menghasilkan dokumen yang cenderung lebih besar dan sulit dibaca jika dibandingkan dengan JSON.
 
-####JSON (JavaScript Object Notation):
+#### JSON (JavaScript Object Notation):
 
 - Sebuah format pertukaran data yang menggunakan struktur objek dan array yang sangat mudah dibaca, dengan data disusun dalam pasangan `key` dan `value`.
 - Sering digunakan untuk berkomunikasi data antara aplikasi web dan server, serta sebagai format konfigurasi yang dapat dengan mudah dimengerti.
 - Lebih ringan dan lebih mudah dibaca daripada XML, menjadikannya pilihan yang lebih populer untuk pertukaran data di web.
 
-####HTML (HyperText Markup Language):
+#### HTML (HyperText Markup Language):
 
 - Bahasa *markup* yang digunakan untuk membangun halaman web dengan fokus pada tampilan dan presentasi halaman.
 - Utamanya digunakan untuk membuat halaman web yang bisa diakses melalui browser web dan bukan digunakan untuk pertukaran data.
