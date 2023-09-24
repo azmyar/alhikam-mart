@@ -4,7 +4,7 @@ from main.models import Item
 class mainTest(TestCase):
     def test_item_model_fields(self):
         self.assertTrue(Item.name)
-        self.assertTrue(Item.amount)
+        self.assertTrue(Item.stock)
         self.assertTrue(Item.description)
 
     def test_context_variable_existence(self):
