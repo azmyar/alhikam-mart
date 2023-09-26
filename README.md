@@ -597,7 +597,7 @@ context = {
 ```
 
 ### Menggunakan Data Dari Cookies
-#### Step 1: Menambahkan *import* dan fungsi yang sesuai pada file views.py
+#### Step 1: Menambahkan *import* yang sesuai pada file views.py
 ```python
 import datetime
 from django.http import HttpResponseRedirect
@@ -628,7 +628,7 @@ def login_user(request):
 - context pada show_main
 ```python
 context = {
-    'name': 'Pak Bepe',
+    'name': request.user.username,  
     'class': 'PBP A',
     'products': products,
     'last_login': request.COOKIES['last_login'],
