@@ -20,6 +20,7 @@ def register(request):
             form.save()
             messages.success(request, 'Your account has been successfully created!')
             return redirect('main:login')
+        
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -78,7 +79,6 @@ def add_stock(request, id):
     product.stock += 1
     product.save()
     return HttpResponseRedirect(reverse('main:show_main'))
-
 
 def reduce_stock(request, id):
     product = Product.objects.get(pk=id)
