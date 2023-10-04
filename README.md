@@ -652,3 +652,63 @@ tambahkan kode berikut pada `main.html`
 ```
 
 </details>
+
+<details>
+<summary>&ensp;Tugas 5</summary>
+
+### 1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+
+- #### Element Selector
+&emsp;Digunakan ketika ingin menggunakan *styling* yang sama pada semua elemen dengan **tag HTML**tertentu pada halaman web.
+
+- #### ID Selector
+
+&emsp;Digunakan ketika ingin menggunakan *styling* pada elemen spesifik dalam halaman web karena **ID bersifat unik.**jadi ini sangat berguna untuk mengidentifikasi elemen spesifik yang akan diubah tampilannya.
+
+- #### Class Selector
+&emsp;Digunakan ketika Anda ingin menggunakan *styling* pada sekelompok elemen yang memiliki kelas yang sama. Ini memungkinkan untuk mengaplikasikan *styling* yang sama pada beberapa elemen **tanpa** harus mengulangi kode CSS yang sama **berulang-ulang.**
+
+### 2. Jelaskan HTML5 Tag yang kamu ketahui.
+`<html>`: Tag ini menandai awal dan akhir dari dokumen HTML dan berisi seluruh konten halaman web.
+
+`<head>`: Bagian ini berisi informasi meta tentang halaman web, seperti judul, meta deskripsi, dan link ke file CSS atau JavaScript.
+
+`<title>`: Ini digunakan untuk menentukan judul halaman web yang akan ditampilkan di tab browser.
+
+`<link>`: Tag ini digunakan untuk menghubungkan halaman web dengan file eksternal, seperti stylesheet (CSS).
+
+`<style>`: Ini adalah tempat Anda menempatkan kode CSS untuk menggaya halaman web secara internal.
+
+`<script>`: Ini adalah tempat Anda menempatkan kode JavaScript yang akan dieksekusi oleh browser.
+
+`<body>`: Bagian ini berisi konten yang akan ditampilkan pada halaman web, seperti teks, gambar, video, dan elemen lainnya.
+
+`<h1>`,`<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`: Tag-tag ini digunakan untuk membuat heading atau judul dengan tingkat kepentingan yang berbeda. `<h1>` adalah yang tertinggi, sedangkan `<h6>` adalah yang terendah.
+
+`<p>`: Ini digunakan untuk membuat paragraf teks.
+
+`<a>`: Ini digunakan untuk membuat tautan atau hyperlink.
+
+`<img>`: Tag ini digunakan untuk menampilkan gambar pada halaman web.
+
+`<div>`: Tag ini digunakan untuk mengelompokkan dan mengatur konten dalam blok atau wadah.
+
+### 3. Jelaskan perbedaan antara margin dan padding.
+![Bagan](/img/MarginPadding.png "Bagan")
+- **Margin** merupakan jarak antara border ke elemen lainnya di luar border
+- **Padding** merupakan jarak antara border ke konten di dalamnya
+
+### 4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+
+- Bootstrap merupakan framework CSS dengan pendekatan desain yang lebih terstruktur dan telah mendefinisikan komponen UI yang siap pakai.
+
+- Tailwind CSS adalah framework CSS yang lebih mengutamakan fleksibilitas. Ini memberikan sejumlah kelas *styling* yang dapat digunakan untuk membangun komponen dan tampilan sesuai kebutuhan.
+
+Jika ingin membangun web yang memiliki **tampilan konsisten** dan **tidak banyak waktu** untuk merancang tampilan dari awal, maka adalah ide bagus untuk memilih framework **Bootstrap**. 
+
+Namun jika ingin membangun web yang memerlukan **kustomisasi yang lebih besar** dan **tampilan yang unik**, maka akan lebih cocok jika menggunakan framework **Tailwind.**
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+
+</details>
