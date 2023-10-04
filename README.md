@@ -710,5 +710,6 @@ Namun jika ingin membangun web yang memerlukan **kustomisasi yang lebih besar** 
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
+Styling menggunakan inline dan internal CSS.
 
 </details>
