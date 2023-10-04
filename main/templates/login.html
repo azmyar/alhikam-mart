@@ -1,45 +1,74 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
     <title>Login</title>
 {% endblock meta %}
 
 {% block content %}
+    <div class = "login">
 
-<div class = "login">
 
-    <h1>Login</h1>
+        <div class="loginWrapper">
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
+            <div>
+                <h1>Login</h1>
+
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div style="display: flex; flex-direction: column; gap:80px">
+                        <div style="display: flex; flex-direction: column; width: 100%; gap:10px">
+                            <div class="inputLogin">
+                                <input type="text" name="username" placeholder="Username" class="form-control" style="width: 100%;">
+                            </div>
+                            <div class="inputLogin">
+                                <input type="password" name="password" placeholder="Password" class="form-control" style="width: 100%;"> 
+                            </div>
+                        </div>
+                        <div class="inputLogin">
+                            <input class="btn login_btn" type="submit" value="Login" style="width: 100%;">   
+                        </div>
+                    </div>
+                </form>
+
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}     
                     
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+                Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+            </div>
+        </div>
+    </div>
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+<style>
+    .login {
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        height: 720px;
+    }
+    
+    .inputLogin {
+        display: flex; flex-direction: row;
+    }
 
-</div>
-
+    .loginWrapper {
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        width: 400px; 
+        height: 450px;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        border-radius: 25px;
+    }
+    
+    
+</style>
 {% endblock content %}
