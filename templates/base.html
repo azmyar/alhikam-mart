@@ -1,20 +1,21 @@
-{% load static %}
+{% load static tailwind_tags%}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% block meta %}
+        <link rel="icon" href="{% static 'svg/favicon.ico' %}">
         <meta charset="UTF-8" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0"
         />
+        {% block meta %}
         {% endblock meta %}
-        {% block css %}
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
-    {% endblock %}
+        {% tailwind_css %}
+        
     </head>
 
-    <body style="display: flex; flex-direction: column; align-items: center;">
+    <body>
         {% block content %}
         {% endblock content %}
     </body>

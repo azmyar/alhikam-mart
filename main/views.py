@@ -1,5 +1,6 @@
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
@@ -57,6 +58,25 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
+
+def get_product_json(request):
+    product_item = Product.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        stock = request.POST.get("stock")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Product(name=name, stock=stock, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    
+    return HttpResponseNotFound()
 
 def create_product(request):
     form = ProductForm(request.POST or None)

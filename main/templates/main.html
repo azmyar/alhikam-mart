@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
+{% load static tailwind_tags%}
+
+{% block meta %}
+    <title> Home Page | Alhikam Mart </title>
+{% endblock meta %}
 
 {% block content %}
-<div class="container">
-    <div class="navigation-bar">
-        <h1>Alhikam Mart</h1>
+<div class="absolute bg-[#FFFAF0] w-[100%] h-[100%]
+            flex flex-col items-center overflow-scroll">
+
+    <div class="flex flex-row w-[100%] justify-between shadow-[0_0px_10px_-1px_rgba(0,0,0,0.3)] p-[16px] rounded-lg">
+        <img src="{% static 'svg/logo.svg' %}"></img>
 
         <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
             <p> Hello {{name}} from {{class}}</p>
@@ -19,38 +26,7 @@
 
         <p>Kamu menyimpan {{ products.count }} item pada aplikasi ini</p>
 
-        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-        
-        <div class="card-container">
-            {% for product in products %}
-
-                <div {% if forloop.last %} class="card-last" {% else %} class="card" {% endif %} >
-
-                    <p style="font-size: 20px; font-weight: 700;">{{product.name}}</p>
-                    <p>{{product.stock}}</p>
-                    <a href="{% url 'main:reduce_stock' product.id%}">
-                        <button> &#060 </button>
-                    </a>
-                    
-                    <a href="{% url 'main:add_stock' product.id%}">
-                        <button> &#062 </button>
-                    </a>
-                    <p>{{product.description}}</p>
-                    <p>{{product.date_added}}</p>
-                    <a href="{% url 'main:delete_product' product.id%}">
-                        <button> Delete </button>
-                    </a>
-                    <a href="{% url 'main:edit_product' product.pk %}">
-                        <button>
-                            Edit
-                        </button>
-                    </a>
-                </div>
-            
-            {% endfor %}
-        </div>
-
-        <br />
+        <table id="product_table"></table>
 
         {%if products.count == 0%}
         <a href="{% url 'main:create_product' %}">
@@ -58,57 +34,94 @@
                 Add Your First Product
             </button>
         </a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
         {% else %}
         <a href="{% url 'main:create_product' %}">
             <button>
                 Add New Product
             </button>
         </a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
         {% endif%}
 
         <h5>Sesi terakhir login: {{ last_login }}</h5>
 
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock" class="col-form-label">stock:</label>
+                            <input type="number" class="form-control" id="stock" name="stock"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<style>
-    .container {
-        width: 100%;
-    }
-    .navigation-bar {
-        position: fixed;
-        padding: 0 20px 0 20px;
-        justify-content: space-between;
-        display: flex;
-        align-items: center;
-        height: 50px;
-        width: 95%;
-        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-        border-radius: 15px;
+<script>
+
+    document.getElementById("button_add").onclick = addProduct
+
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
     }
 
-    .card-container {
-        overflow: scroll;
-        padding: 20px;
-        display: flex;
-        flex-direction: row;
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
     }
 
-    .card {
-        min-width: 300px;
-        padding: 20px;
-        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-        border-radius: 25px;
-        margin-right:20px
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>stock</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>`
+        products.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.stock}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+        </tr>` 
+        })
+        
+        document.getElementById("product_table").innerHTML = htmlString
     }
 
-    .card-last {
-        background-color: rgb(252, 167, 167);
-        min-width: 300px;
-        padding: 20px;
-        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-        border-radius: 25px;
-        margin-right:20px
-    }
-</style>
+    refreshProducts()
+</script>
+
 {% endblock content %}

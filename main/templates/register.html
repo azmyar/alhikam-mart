@@ -1,61 +1,63 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static tailwind_tags%}
 
 {% block meta %}
-    <title>Register</title>
+    <title> Register | Alhikam Mart </title>
 {% endblock meta %}
 
 {% block content %}
-    <div class = "login">
+    <div class="absolute bg-[#FFFAF0] w-[100%] h-[100%] p-[64px] gap-[128px]
+                flex flex-col items-center">
 
+        <img src="{% static 'svg/illustration.svg' %}" class="absolute mt-[72px]"></img>
+        <img src="{% static 'svg/logo.svg' %}"></img>
 
-        <div class="loginWrapper">
+        {% for field in form %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    {% if forloop.last %}
+                    <div class="slide absolute flex flex-col justify-center items-center h-[100px] z-[0]">
+                        <div class="w-[368px] bg-[#FFB619] p-[16px] shadow-[0_0px_10px_-1px_rgba(0,0,0,0.3)] rounded-lg text-center">
+                            <p>{{ error }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        
+        <form method="POST" class="bg-[#FFFAF0] w-[368px] p-[32px] shadow-[0_0px_10px_-1px_rgba(0,0,0,0.3)] rounded-lg z-[1]">
 
-            <div>
-                <h1>Register</h1>
+            {% csrf_token %}
+            <div class="flex flex-col gap-[64px]">
 
-                <form method="POST" action="">
-                    {% csrf_token %}
-                    {{ form.as_table }}
-                    <input class="btn" type="submit" value="Daftar" style="width: 100%;">   
-                </form>
+                <div class="flex flex-row items-center justify-between">
+                    <p class="text-4xl font-bold">Register</p>
+                    <a class="text-[#64B357]" href="{% url 'main:login' %}">Login</a>
+                </div>
 
-                {% if messages %}
-                    <ul>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}       
+                <div class="flex flex-col gap-[16px]">
+                    
+                    <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                        <input type="text" name="username" placeholder="Username" class="form-control rounded-md w-[100%] h-[52px] border-none focus:ring-0">
+                    </div>
+                    
+                    <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                        <input type="password" name="password1" placeholder="Password" class="form-control rounded-md w-[100%] h-[52px] border-none focus:ring-0">
+                    </div>
+
+                    <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                        <input type="password" name="password2" placeholder="Re-enter Password" class="form-control rounded-md w-[100%] h-[52px] border-none focus:ring-0">
+                    </div>
+                    
+                </div>
+
+                <button type="submit" value="Daftar" class="cursor-pointer rounded-md bg-[#64B357] text-[#FFFAF0] font-bold p-[10px]">
+                    Register
+                </button>
+
             </div>
-        </div>
+        </form>
+
     </div>
-
-
-<style>
-    .login {
-        display: flex; 
-        flex-direction: column; 
-        justify-content: center; 
-        align-items: center; 
-        height: 720px;
-    }
-    
-    .inputLogin {
-        display: flex; flex-direction: row;
-    }
-
-    .loginWrapper {
-        display: flex; 
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; 
-        width: 400px; 
-        height: 450px;
-        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-        border-radius: 25px;
-    }
-    
-    
-</style>
 {% endblock content %}
