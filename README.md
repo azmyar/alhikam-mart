@@ -713,3 +713,35 @@ Namun jika ingin membangun web yang memerlukan **kustomisasi yang lebih besar** 
 Styling menggunakan inline dan internal CSS.
 
 </details>
+
+<details>
+<summary>&ensp;Tugas 6</summary>
+
+### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+- Asynchronous:
+
+Dalam pemrograman async, tugas-tugas dapat berjalan secara bersamaan atau dalam beberapa thread yang berbeda. Ini memungkinkan program untuk tetap responsif dan menjalankan operasi yang memerlukan waktu tanpa menghalangi tugas lain.
+Contoh kasus penggunaan async termasuk permintaan ke server, operasi I/O (Input/Output), dan tugas-tugas yang berpotensi memakan waktu, seperti mengunduh file besar.
+
+- Synchronous:
+
+Dalam pemrograman sync, tugas-tugas dieksekusi satu per satu dalam satu thread tunggal. Ini berarti program akan menunggu tugas saat ini selesai sebelum menjalankan tugas berikutnya.
+Contoh kasus penggunaan sync termasuk pengolahan data sekuensial, operasi matematika sederhana, atau tugas-tugas yang tidak memerlukan waktu lama.
+
+### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+Paradigma event-driven programming adalah cara berpikir dalam pengembangan perangkat lunak yang merespons kejadian atau peristiwa (events) daripada mengikuti alur eksekusi linear. Penerapannya pada JavaScript dan AJAX memungkinkan program untuk merespons event seperti klik tombol "Load Data" tanpa menghentikan fungsi lain, menciptakan aplikasi web yang responsif dan non-blocking
+
+### Jelaskan penerapan asynchronous programming pada AJAX.
+Asynchronous programming pada AJAX adalah cara mengirim permintaan ke server tanpa menghentikan eksekusi tugas lain. Ini melibatkan callback functions, event handling, dan operasi non-blocking. Contohnya, Anda dapat menggunakan XMLHttpRequest untuk mengambil data dari server tanpa menghambat interaksi pengguna.
+
+### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+Fetch API adalah pendekatan yang lebih modern, native, dan ringan untuk AJAX dalam pengembangan web. Ini berfokus pada performa, keamanan, dan penggunaan sumber daya yang efisien. Sementara itu, jQuery adalah opsi yang lebih tua, yang lebih cocok untuk mendukung browser lama atau ketika Anda ingin menggunakan sintaks yang lebih sederhana. Dalam pengembangan web modern, Fetch API sering menjadi pilihan yang lebih baik.
+
+### Step-Step
+- Pertama saya memutuskan untuk menggunakan Tailwind pada Tugas ini. Saya mengikuti tutorial di Youtube untuk inisiasinya.
+- Lalu, saya mengikuti Tutorial 5
+- Di Tutorial 5 terdapat banyak contoh AJAX yang kemudian saya modify untuk membuat fitur tambah stock, kurang stock, delete product, dan edit product.
+- Di Tutorial 5, modal yang digunakan menggunakan Bootstrap, sedangkan project saya menggunakan Tailwind. Jadi saya mencari tutorial untuk membuat Modal manual menggunakan Tailwind
+- Setelah semua checklist di tugas sudah dilakukan, saya melakukan deploying
+
+</details>
