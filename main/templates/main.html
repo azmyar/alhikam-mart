@@ -6,122 +6,246 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="absolute bg-[#FFFAF0] w-[100%] h-[100%]
-            flex flex-col items-center overflow-scroll">
 
-    <div class="flex flex-row w-[100%] justify-between shadow-[0_0px_10px_-1px_rgba(0,0,0,0.3)] p-[16px] rounded-lg">
-        <img src="{% static 'svg/logo.svg' %}"></img>
+<div class="absolute bg-[#FFFAF0] w-[100%] h-[100%] pl-[16px] pt-[16px] gap-[64px]
+            flex flex-col items-left">
 
-        <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
-            <p> Hello {{name}} from {{class}}</p>
+    <!-- NavBar -->
+    <div class="flex flex-row w-[100%] p-[16px] justify-between pr-[32px]">
+        <img src="{% static 'svg/logo.svg' %}" class="h-[50px]"></img>
+
+        <div class="flex flex-row items-center gap-[32px]">
+
+            <div class="flex flex-col text-right">
+                <p class="text-lg"> Hello, 
+                    <span class="font-bold">{{name}}</span> from 
+                    <span class="font-bold">{{class}}</span>
+                </p>
+                <p>Last Login: {{ last_login }}</p>
+            </div>
+
             <a href="{% url 'main:logout' %}">
-                <button>
+                <button class="cursor-pointer rounded-md bg-[#64B357] text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">
                     Logout
                 </button>
             </a>
         </div>
     </div>
 
-    <div style="padding-top: 64px;">
+    <!-- Products -->
+    <div class="flex flex-col pl-[64px] gap-[64px] ">
 
-        <p>Kamu menyimpan {{ products.count }} item pada aplikasi ini</p>
+        <p class="text-[72px] font-bold">Your Products.</p>
 
-        <table id="product_table"></table>
-
-        {%if products.count == 0%}
-        <a href="{% url 'main:create_product' %}">
-            <button>
-                Add Your First Product
-            </button>
-        </a>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
-        {% else %}
-        <a href="{% url 'main:create_product' %}">
-            <button>
-                Add New Product
-            </button>
-        </a>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
-        {% endif%}
-
-        <h5>Sesi terakhir login: {{ last_login }}</h5>
-
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form" onsubmit="return false;">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="stock" class="col-form-label">stock:</label>
-                            <input type="number" class="form-control" id="stock" name="stock"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="col-form-label">Description:</label>
-                            <textarea class="form-control" id="description" name="description"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
-                </div>
-            </div>
+        <div class="flex justify-left w-[100%] items-center">
+            <div class="absolute w-[320px] h-[380px] z-[0] bg-[#FFB619] rounded-lg"></div>
+            <div id="product_table" class="p-[32px] flex flex-row items-center gap-[32px] overflow-scroll z-[1]"></div>
         </div>
+
     </div>
 
-</div>
+    <!-- Add Product Modals -->
+    <dialog id="modal" class="fade w-[480px] p-[32px] rounded-lg bg-[#FFFAF0]">
+        <div class="flex flex-col gap-[32px]">
 
-<script>
+            <div class="flex flex-row justify-between items-center">
+                <p class="text-[32px] font-bold"> Add New Product </p>
+                <form>
+                    <div class="flex flex-row justify-end w-[100%]">
+                        <button class="cursor-pointer w-[50px] rounded-md bg-[#FFB619] text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">X</button>
+                    </div>
+                </form>
+            </div>
 
-    document.getElementById("button_add").onclick = addProduct
+            <img src="{% static 'svg/placeholder-last.svg' %}" class="h-[100px]"></img>
+            
+            <form id="form" onsubmit="return false;" class="flex flex-col gap-[32px]">
+                {% csrf_token %}
+                <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                    <input type="text" id="name" name="name" placeholder="Product Name" class="rounded-md w-[100%] h-[52px] border-none focus:ring-0"> 
+                </div>
 
-    async function getProducts() {
-        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
-    }
+                <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                    <input type="number" id="stock" name="stock" placeholder="Stock" class="rounded-md w-[100%] h-[52px] border-none focus:ring-0"> 
+                </div>
 
-    function addProduct() {
-        fetch("{% url 'main:add_product_ajax' %}", {
-            method: "POST",
-            body: new FormData(document.querySelector('#form'))
-        }).then(refreshProducts)
+                <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                    <input type="text" id="description" name="description" placeholder="Description" class="rounded-md w-[100%] h-[52px] border-none focus:ring-0"> 
+                </div>
+            </form>
 
-        document.getElementById("form").reset()
-        return false
-    }
+            <div>
+                <form>
+                    <button onclick="addProduct()" class="w-[100%] cursor-pointer rounded-md bg-[#64B357] text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">Add Product</button>
+                </form>
+            </div>
+            
+        </div>
+    </dialog>
 
-    async function refreshProducts() {
-        document.getElementById("product_table").innerHTML = ""
-        const products = await getProducts()
-        let htmlString = `<tr>
-            <th>Name</th>
-            <th>stock</th>
-            <th>Description</th>
-            <th>Date Added</th>
-        </tr>`
-        products.forEach((item) => {
-            htmlString += `\n<tr>
-            <td>${item.fields.name}</td>
-            <td>${item.fields.stock}</td>
-            <td>${item.fields.description}</td>
-            <td>${item.fields.date_added}</td>
-        </tr>` 
-        })
-        
-        document.getElementById("product_table").innerHTML = htmlString
-    }
+    <!-- Edit Product Modals -->
+    <div id="edit_modals"></div>
+    
+    <!-- Product Details Modals -->
+    <div id="product_modals"></div>
 
-    refreshProducts()
-</script>
+    <script>
+
+        function addProduct() {
+            fetch("{% url 'main:add_product_ajax' %}", {
+                method: "POST",
+                body: new FormData(document.querySelector('#form'))
+            }).then(refreshProducts)
+
+            document.getElementById("form").reset()
+            return false
+        }
+
+        async function getProducts() {
+            return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+        }
+
+        async function editProduct(pk) {
+            const response = await fetch(`/edit-product/${pk}`, {
+                method: "POST",
+                body: new FormData(document.querySelector('#formEdit'))
+            }).then(refreshProducts)
+
+            return false
+        }
+
+        async function deleteProduct(pk) {
+            const response = await fetch(`/delete-product/${pk}`).then(refreshProducts);
+        }
+
+        async function addStock(pk) {
+            const current = document.getElementById(`stock${pk}`).innerHTML;
+            const response = await fetch(`/add-stock/${pk}`).then(refreshProducts);
+            document.getElementById(`stock${pk}`).innerHTML = parseInt(current) + 1;
+        }
+
+        async function reduceStock(pk) {
+            const current = document.getElementById(`stock${pk}`).innerHTML;
+            const response = await fetch(`/reduce-stock/${pk}`).then(refreshProducts);
+            if (parseInt(current) > 0){
+                document.getElementById(`stock${pk}`).innerHTML = parseInt(current) - 1;
+            }
+        }
+
+        async function refreshProducts() {
+            
+            document.getElementById("product_table").innerHTML = ""
+            const products = await getProducts()
+            let editString = ``
+            let modalString = ``
+            let productString = `
+                <div class="flex flex-col items-center justify-center min-w-[140px] min-h-[280px] text-center" >
+
+                    <p class="text-[96px] font-bold">${products.length}</p>
+                    <p class="text-2xl font-bold">${(products.length <= 1)? 'product' : 'products'} </p>
+
+                </div>
+                <div onclick="modal.showModal()" class="cursor-pointer flex flex-col items-center justify-center bg-[#64B357] min-w-[160px] min-h-[160px] hover:scale-[103%] transition duration-300 shadow-[0_0px_10px_-1px_rgba(0,0,0,0.3)] p-[16px] rounded-lg" >
+
+                    <p class="text-[72px] font-bold ">+</p>
+
+                </div>`
+
+            products.reverse().forEach((item, id) => {
+                productString += `
+                    <div onclick="modal${id}.showModal()" class="cursor-pointer flex flex-col justify-between bg-[#FFFAF0] w-[280px] shadow-[0_0px_10px_-1px_rgba(0,0,0,0.3)] rounded-lg hover:scale-[102%] transition duration-300 p-[16px] gap-[32px]">
+                        <div class="flex flex-row justify-between w-[100%]">
+                            <button onclick="edit${item.pk}.showModal(); event.stopPropagation();" class="cursor-pointer w-fit rounded-md bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">edit</button>
+                            <button onclick="deleteProduct(${item.pk}); event.stopPropagation();" class="cursor-pointer w-fit rounded-md bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">delete</button>
+                        </div>
+                        <div class="flex items-center justify-center h-[60%]">
+                            <img src="${(id === 0)? "{% static 'svg/placeholder-last.svg' %}" : "{% static 'svg/placeholder.svg' %}"}" class="h-[100px]"></img>
+                        </div>
+                        <div>
+                            <p class="w-[240px] truncate text-[24px] font-bold" >${item.fields.name}</p>
+
+                            <p>stock:</p>
+                            <div class="flex flex-row gap-[8px]">
+                                <p id="stock${item.pk}" class="w-[100%] text-[20px] font-bold">${item.fields.stock}</p>
+                                <button onclick="reduceStock(${item.pk}); event.stopPropagation();" class="cursor-pointer rounded-md bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] w-[50px] font-bold p-[10px] hover:scale-[103%] transition duration-300">-</button>
+                                <button onclick="addStock(${item.pk}); event.stopPropagation();" class="cursor-pointer rounded-md bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] w-[50px] font-bold p-[10px] hover:scale-[103%] transition duration-300">+</button>
+                            </div>
+                        </div>            
+                    </div>`
+
+                modalString += `
+                    <dialog id="modal${id}" class="fade w-[480px] p-[32px] rounded-lg bg-[#FFFAF0] ">
+
+                        <form>
+                            <div class="flex flex-row justify-end w-[100%]">
+                                <button class="cursor-pointer w-[50px] rounded-md bg-[#FFB619] text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">X</button>
+                            </div>
+                        </form>
+
+                        <div class="flex flex-col gap-[16px]">
+                            <img src="${(id === 0)? "{% static 'svg/placeholder-last.svg' %}" : "{% static 'svg/placeholder.svg' %}"}" class="h-[100px]"></img>
+
+                            <div class="flex flex-row justify-between items-center">
+                                <p class=" text-[34px] font-bold" >${item.fields.name}</p>
+                                <p>${item.fields.date_added}</p>
+                            </div>
+
+                            <div>
+                                <p class="text-[16px] font-bold" >Stock:</p>
+                                <p class="text-[16px] ">${item.fields.stock}</p>
+                            </div>
+
+                            <div>
+                                <p class="text-[16px] font-bold">Description:</p> 
+                                <p class="text-[16px]" >${item.fields.description}</p>
+                            </div>
+                        </div>
+                    </dialog>`
+
+                editString += `
+                    <dialog id="edit${item.pk}" class="fade w-[480px] p-[32px] rounded-lg bg-[#FFFAF0]">
+                        <div class="flex flex-col gap-[32px]">
+                            <div class="flex flex-row justify-between items-center">
+                                <p class="text-[32px] font-bold"> Edit Product </p>
+                                <form>
+                                    <div class="flex flex-row justify-end w-[100%]">
+                                        <button class="cursor-pointer w-[50px] rounded-md bg-[#FFB619] text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">X</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <img src="${(id === 0)? "{% static 'svg/placeholder-last.svg' %}" : "{% static 'svg/placeholder.svg' %}"}" class="h-[100px]"></img>
+                            
+                            <form id="formEdit" onsubmit="return false;" class="flex flex-col gap-[32px]">
+                                {% csrf_token %}
+                                <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                                    <input type="text" id="name" name="name" placeholder="Product Name" value = ${item.fields.name} class="rounded-md w-[100%] h-[52px] border-none focus:ring-0"> 
+                                </div>
+
+                                <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                                    <input type="number" id="stock" name="stock" placeholder="Stock" value = ${item.fields.stock} class="rounded-md w-[100%] h-[52px] border-none focus:ring-0"> 
+                                </div>
+
+                                <div class="border-[1px] focus-within:border-[#64B357] rounded-md">
+                                    <input type="text" id="description" name="description" placeholder="Description" value = ${item.fields.description} class="rounded-md w-[100%] h-[52px] border-none focus:ring-0"> 
+                                </div>
+                            </form>
+
+                            <div>
+                                <form>
+                                    <button onclick="editProduct(${item.pk})" class="w-[100%] cursor-pointer rounded-md bg-[#64B357] text-[#FFFAF0] font-bold p-[10px] hover:scale-[103%] transition duration-300">Done</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>`
+            })
+            
+            document.getElementById("product_table").innerHTML = productString
+            document.getElementById("product_modals").innerHTML = modalString
+            document.getElementById("edit_modals").innerHTML = editString
+        }
+
+        refreshProducts()
+    </script>
 
 {% endblock content %}

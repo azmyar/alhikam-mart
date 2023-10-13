@@ -3,14 +3,29 @@
 @tailwind utilities;
 
 .slide {
-    animation: slide-in 500ms forwards;
+    animation: slide 500ms forwards;
 }
 
-@keyframes slide-in {
+@keyframes slide {
     0% {
         margin-top: 200px;
     }
     100% {
         margin-top: 72px;
+    } 
+}
+
+.fade {
+    animation: fade 500ms forwards;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     } 
 }
