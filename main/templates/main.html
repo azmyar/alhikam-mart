@@ -167,8 +167,8 @@
                             <p>stock:</p>
                             <div class="flex flex-row gap-[8px]">
                                 <p id="stock${item.pk}" class="w-[100%] text-[20px] font-bold">${item.fields.stock}</p>
-                                <button onclick="reduceStock(${item.pk}); event.stopPropagation();" class="cursor-pointer rounded-md bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] w-[50px] font-bold p-[10px] hover:scale-[103%] transition duration-300">-</button>
-                                <button onclick="addStock(${item.pk}); event.stopPropagation();" class="cursor-pointer rounded-md bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] w-[50px] font-bold p-[10px] hover:scale-[103%] transition duration-300">+</button>
+                                <button onclick="reduceStock(${item.pk}); event.stopPropagation();" class="cursor-pointer rounded-[100%] bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] w-[60px] font-bold p-[10px] hover:scale-[103%] transition duration-300">-</button>
+                                <button onclick="addStock(${item.pk}); event.stopPropagation();" class="cursor-pointer rounded-[100%] bg-${(id === 0)? "[#FFB619]" : "[#64B357]"} text-[#FFFAF0] w-[60px] font-bold p-[10px] hover:scale-[103%] transition duration-300">+</button>
                             </div>
                         </div>            
                     </div>`
